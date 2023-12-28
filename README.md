@@ -1,8 +1,14 @@
 # ☁️ AWS Project - Serverless AWS Microservices Lab - REST API
 
-## 📝 Lab Overview
+## 📄 Introduction
 
 A hands-on step-by-step lab of building a serverless microservices architecture right in the AWS console. We will create a working REST API to trigger our lambda function to perform CRUD operations in our database.
+
+## 📝 Lab Overview
+
+As shown in the architecture design below, we have serverless API microservice architecture, if we read it from left to right you'll notice that we have a client and that client is going to evoke a ref API through our API Gateway the API Gateway will then trigger a Lambda function and in our Lambda function, we're going to embed it with code python code and that code will allow the Lambda function to perform CRUD operations (Create Read Update and Delete), then Lambda will have the ability to perform CRUD operations into DynamoDB.
+
+
 
 
 ## 📐 Architecture Design
