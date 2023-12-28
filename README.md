@@ -23,12 +23,12 @@ Create the DynamoDB table that the Lambda function uses.
 
 To create a DynamoDB table
 
-☑️ Open the DynamoDB console.
-☑️ Choose Create table.
-☑️ Create a table with the following settings.
+1. Open the DynamoDB console.
+2. Choose Create table.
+3. Create a table with the following settings.
      * Table name – apigateway-lambda-crud
      * Primary key – id (string)
-☑️ Choose Create.
+4. Choose Create.
 
 
 
