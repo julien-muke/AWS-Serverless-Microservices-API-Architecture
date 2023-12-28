@@ -17,6 +17,21 @@ As shown in the architecture design below, we have serverless API microservice a
 
 
 
+## ➡️ Step 1 - Create DynamoDB table
+
+Create the DynamoDB table that the Lambda function uses.
+
+To create a DynamoDB table
+
+☑️ Open the DynamoDB console.
+☑️ Choose Create table.
+☑️ Create a table with the following settings.
+     * Table name – apigateway-lambda-crud
+     * Primary key – id (string)
+☑️ Choose Create.
+
+
+
 
 
 ## 💰 Cost
