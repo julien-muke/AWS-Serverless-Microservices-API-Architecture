@@ -191,7 +191,7 @@ You have attached the policy you created earlier to a new IAM role, which in tur
 
 
 
-### 👉 Apply the IAM role to a Lambda function
+## ➡️ Step 3 - Apply the IAM role to a Lambda function
 
 You have created an IAM role that has an attached IAM policy that grants both read and write access to DynamoDB and write access to CloudWatch Logs. The next step is to apply the IAM role to a Lambda function.
 
@@ -204,6 +204,127 @@ Select "Author from scratch". Use name `LambdaCRUDOverHTTPS` , select Python 3.7
 
 
 ![Create-function-Lambda](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/1e96bdd3-3f39-4bfc-b4c6-2d95fa0072b3)
+
+
+
+2. Replace the existing sample code with the following code snippet and click "Deploy"
+
+
+
+```bash
+     import boto3
+import json
+
+print('Loading function')
+
+def lambda_handler(event,context):
+    '''Provide an event that contains the following keys:
+
+      - operation: one of the operations in the operations dict below
+      - tableName: required for operations that interact with DynamoDB
+      - payload: a parameter to pass to the operation being performed
+    '''
+    
+    print("Received event: " + json.dumps(event, indent=1))
+     
+    operation = event['operation']
+    
+
+    if 'tableName' in event:
+        dynamo = boto3.resource('dynamodb').Table(event['tableName'])
+
+    operations = {
+    #CRUD operations shown below:
+        'create': lambda x: dynamo.put_item(**x),
+        'read': lambda x: dynamo.get_item(**x),
+        'update': lambda x: dynamo.update_item(**x),
+        'delete': lambda x: dynamo.delete_item(**x),
+        'echo': lambda x: x
+    }
+
+    if operation in operations:
+        return operations[operation](event.get('payload'))
+    else:
+        raise ValueError('Unrecognized operation "{}"'.format(operation))
+        
+```
+
+
+
+![Screenshot 2023-12-28 at 19 01 22](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/07402df1-4c91-40ed-9102-0b1c60faf3e1)
+
+
+
+
+## ➡️ Step 4 - Test Lambda Function
+
+
+Let's test our newly created function. We will test our "echo" operation AND our "create" operation. "echo" is an operation that should output whatever the request/input/event submitted. "create" is an operation that will create a real record into the DynamoDB table (apigateway-lambda-crud) we created in the first step.
+
+
+
+🔵 "echo" Operation TEST
+
+1. Click the arrow on the "Test" button and click "Configure test events".
+
+
+![Screenshot 2023-12-29 at 10 13 58](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/acce94dc-2bd5-44b8-909d-6920c2d6847b)
+
+
+
+2. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it'd simply return the payload from input event as output. Click "Create" to save.
+
+
+```bash
+     {
+  "operation": "echo",
+  "payload": {
+    "testkey1": "testvalue1",
+    "testkey2": "testvalue2"
+  }
+}
+```
+
+
+![Screenshot 2023-12-29 at 11 37 22](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/bf1e377a-1cc4-4e87-b4da-59cdb2253503)
+
+
+
+3. Click "Test", and it will execute the test event. You should see the output in the console
+
+
+![Screenshot 2023-12-29 at 11 37 51](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/b1112030-f688-4db9-bcb5-70474eec6c5c)
+
+
+
+🔵 "create" Operation TEST
+
+
+1. Click the arrow on the "Test" button and click "Configure test events"
+
+
+![Screenshot 2023-12-29 at 11 38 33](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/b347782f-c7ba-4660-b8fb-1325b8fb1bd3)
+
+
+
+2. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it will create a new record into our DynamoDB table. Click "Create" to save.
+
+
+```bash
+     {
+  "operation": "create",
+  "tableName": "apigateway-lambda-crud",
+  "payload": {
+    "Item": {
+      "id": "ABC",
+      "number": 5,
+      "name": "Bob",
+      "age": 42
+    }
+  }
+}
+```
+
 
 
 
