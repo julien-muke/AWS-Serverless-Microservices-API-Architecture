@@ -105,6 +105,34 @@ To create an IAM policy:
 
 
 
+```bash
+     {
+"Version": "2012-10-17",
+"Statement": [
+    {
+        "Sid": "VisualEditor0",
+        "Effect": "Allow",
+        "Action": [
+            "logs:CreateLogStream",
+            "dynamodb:PutItem",
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:Scan",
+            "dynamodb:Query",
+            "dynamodb:UpdateItem",
+            "logs:PutLogEvents",
+            "logs:CreateLogGroup"
+        ],
+        "Resource": "*"
+    }
+]
+}
+
+```
+
+
+
+
 ![Create-policy-IAM-Global](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/1a7dfdf2-1715-46fe-b326-41b3c14f26c3)
 
 
@@ -169,6 +197,9 @@ You have created an IAM role that has an attached IAM policy that grants both re
 
 To apply the IAM role to a Lambda function:
 
+Select "Author from scratch". Use name `LambdaCRUDOverHTTPS` , select Python 3.7 as Runtime. Under Permissions, select "Use an existing role", and select `lambda-apigateway-dynamodb-role` that we created, from the drop down
+
+
 1. Navigate to the Lambda console and choose Create function.
 
 
@@ -183,44 +214,8 @@ To apply the IAM role to a Lambda function:
 
 
 
-To create an execution role
-
-1. Open the roles page in the IAM console.
-2. Choose Create role.
-3. Create a role with the following properties.
-    * Trusted entity – Lambda.
-    * Role name – lambda-apigateway-dynamodb-role.
-    * Permissions – Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that the function needs to write data to DynamoDB and upload logs.
 
 
-
-
-
-
-```bash
-     {
-"Version": "2012-10-17",
-"Statement": [
-    {
-        "Sid": "VisualEditor0",
-        "Effect": "Allow",
-        "Action": [
-            "logs:CreateLogStream",
-            "dynamodb:PutItem",
-            "dynamodb:DeleteItem",
-            "dynamodb:GetItem",
-            "dynamodb:Scan",
-            "dynamodb:Query",
-            "dynamodb:UpdateItem",
-            "logs:PutLogEvents",
-            "logs:CreateLogGroup"
-        ],
-        "Resource": "*"
-    }
-]
-}
-
-```
 
 
 ## 💰 Cost
