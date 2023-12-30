@@ -503,44 +503,7 @@ In this step, you deploy the API that you created to a stage called prod.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![Screenshot 2023-12-29 at 12 53 35](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/aabeb512-02f2-4bd9-9e29-f0388fd3f234)
 
 
 
