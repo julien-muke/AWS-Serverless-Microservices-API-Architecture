@@ -373,6 +373,157 @@ Let's test our newly created function. We will test our "echo" operation AND our
 
 
 
+## ➡️ Step 5 - Create API
+
+
+To create the API
+
+1. Go to API Gateway console
+2. Scroll down to REST API and click "Build"
+
+
+![Screenshot 2023-12-29 at 12 08 05](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/505ab2a2-4d03-44e8-9c41-479c685e288c)
+
+
+
+3. Make sure to select "New API" and Give the API name as `DynamoOperations`, keep everything as is, click "Create API"
+
+
+
+![Screenshot 2023-12-29 at 12 10 28](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/97dd2c9b-c87f-4f6b-9768-9ff0c806c251)
+
+
+
+4. Each API is collection of resources and methods that are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Typically, API resources are organized in a resource tree according to the application logic. At this time you only have the root resource, but let's add a resource next.
+
+Click "Actions", then click "Create Resource"
+
+![Screenshot 2023-12-29 at 12 11 29](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/0fd84d6e-3798-4662-a8c1-b9b5b994d807)
+
+
+
+5. Input `DynamoOperations` in the Resource Name, Resource Path will get populated. Click "Create Resource"
+
+
+
+![Screenshot 2023-12-29 at 12 12 17](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/a4bc062a-a02c-466f-89fe-95c19503aa37)
+
+
+
+6. Let's create a `POST` Method for our API. With the `/dynamoooperations` resource selected, Click "Actions" again and click "Create Method".
+
+
+![Screenshot 2023-12-29 at 12 13 06](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/60af99f8-e5f8-4437-9976-16f904b70302)
+
+
+
+7. Select `POST` from drop down,
+
+The integration will come up automatically with "Lambda Function" option selected. Select `LambdaCRUDOverHTTPS` function that we created earlier. As you start typing the name, your function name will show up. Select and click "Save". A popup window will come up to add resource policy to the lambda to be invoked by this API. Click "Create method"
+
+
+![Screenshot 2023-12-29 at 12 15 27](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/061d0dc3-6b20-4538-8c3e-ce35a68b7e59)
+
+
+
+Our API-Lambda integration is successfully created.
+
+
+
+## ➡️ Step 6 - Deploy the API
+
+
+In this step, you deploy the API that you created to a stage called prod.
+
+1. Click "Actions", select "Deploy API"
+
+
+
+![Screenshot 2023-12-29 at 12 16 50](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/55d60170-d797-4031-9fec-2acc9348a9bf)
+
+
+
+2. Now it is going to ask you about a stage. Select "[New Stage]" for "Deployment stage". Give `Prod` as "Stage name". Click "Deploy"
+
+
+
+![Screenshot 2023-12-29 at 12 17 30](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/221faab5-26ee-419f-bd6c-e40c21634143)
+
+
+
+3. We're all set to run our solution! To invoke our API endpoint, we need the endpoint url. In the "Stages" screen, expand the stage "Prod", select "POST" method, and copy the "Invoke URL" from screen (we are going to need it in Step 7)
+
+
+
+![Screenshot 2023-12-29 at 12 47 27](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/1d445af6-85f7-40aa-bd38-326d94cefc71)
+
+
+
+## ➡️ Step 7 - Running our solution
+
+1. Go to Postman.com and go to your workspace. (If you've never used Postman then you will have to sign up, no worries it is free and you can use the browser interface)
+
+2. Click the "New" button then select HTTP Request as shown in the screenshot below. 
+
+
+![Screenshot 2023-12-29 at 12 24 54](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/12d743a9-7c4b-46b3-bd4b-f4f731319393)
+
+
+
+3. Switch `GET` to `POST`. Next, copy and paste the Invoke URL that we copied from our API Gateway in the previous step. Lastly, select "Body" then the `raw` option. All shown in the screenshot below.
+
+4. The Lambda function supports using the create operation to create an item in your DynamoDB table. To request this operation, use the following JSON:
+
+```bash
+{
+    "operation": "create",
+    "tableName": "apigateway-lambda-crud",
+    "payload": {
+        "Item": {
+            "id": "ABCD",
+            "number": 879
+        }
+    }
+}
+```
+
+
+![Screenshot 2023-12-29 at 12 27 34](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/3ebbc876-32bc-48e7-8980-71970233eadc)
+
+
+
+
+5. Click "Send". API should execute and return "HTTPStatusCode" 200. 
+
+
+![Screenshot 2023-12-29 at 12 48 18](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/fe8c51b1-35ec-40a7-9bea-dc82b1ddfba1)
+
+
+
+6. To validate that the item is indeed inserted into DynamoDB table, go to Dynamo console, select `apigateway-lambda-crud` table, select "Explore items" tab, and the newly inserted item should be displayed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
