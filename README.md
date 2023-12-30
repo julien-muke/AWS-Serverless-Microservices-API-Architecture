@@ -106,7 +106,7 @@ To create an IAM policy:
 
 
 ```bash
-     {
+{
 "Version": "2012-10-17",
 "Statement": [
     {
@@ -276,7 +276,7 @@ Let's test our newly created function. We will test our "echo" operation AND our
 
 
 ```bash
-     {
+{
   "operation": "echo",
   "payload": {
     "testkey1": "testvalue1",
@@ -311,7 +311,7 @@ Let's test our newly created function. We will test our "echo" operation AND our
 
 
 ```bash
-     {
+{
   "operation": "create",
   "tableName": "apigateway-lambda-crud",
   "payload": {
@@ -324,6 +324,47 @@ Let's test our newly created function. We will test our "echo" operation AND our
   }
 }
 ```
+
+
+![Screenshot 2023-12-29 at 11 40 24](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/099a8874-952f-4fc9-966e-c6e25fbe24f4)
+
+
+
+3. Click "Test", and it will execute the test event. You should see the output in the console
+
+
+![Screenshot 2023-12-29 at 11 54 33](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/dceec698-947e-4796-81e8-86daf6de8051)
+
+
+
+
+🔵 "read" Operation TEST
+
+1. Click the arrow on the "Test" button and click "Configure test events"
+
+2. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it'd simply return the payload from input event as output. Click "Create" to save.
+3. Click "Test", and it will execute the test event. You should see the output in the console.
+
+
+```bash
+{
+  "operation": "read",
+  "tableName": "apigateway-lambda-crud",
+  "payload": {
+    "Key":{"id":"ABC"}
+    
+  }
+}
+```
+
+
+![Screenshot 2023-12-29 at 11 57 27](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/e1d21876-3cc3-4881-a52a-27dd5b12d7f4)
+
+
+
+![Screenshot 2023-12-29 at 11 58 03](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/c2ee8238-cb57-445a-b39a-696db40c4930)
+
+
 
 
 
