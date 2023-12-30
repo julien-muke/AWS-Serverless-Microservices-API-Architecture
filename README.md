@@ -368,8 +368,7 @@ Let's test our newly created function. We will test our "echo" operation AND our
  Go back to your DynamoDB tables, click "Explore Items", if you check the `apigateway-lambda-crud` it will execute the test event successfully. You should see the output in the console.
 
 
- ![Screenshot 2023-12-29 at 12 53 35](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/13f5a7f2-e6e0-456b-8ff1-2e42551cadcf)
-
+ ![Screenshot 2023-12-29 at 12 53 35](https://github.com/julien-muke/AWS-Serverless-Microservices-API-Architecture/assets/110755734/0618a5f6-ba70-4e23-a53d-295fa7c65fa8)
 
 
 
